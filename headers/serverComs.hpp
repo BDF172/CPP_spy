@@ -1,6 +1,6 @@
 #ifndef SERVER_COMMUNICATIONS_HEADER
 #define SERVER_COMMUNICATIONS_HEADER
 
-
+int test(void);
 
 #endif

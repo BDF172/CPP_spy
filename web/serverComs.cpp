@@ -1,7 +1,4 @@
-// #include "../headers/headers.hpp"
-#include <iostream>
-#include <WinSock2.h>
-#include <windows.h>
+#include "../headers/headers.hpp"
 
 using namespace std;
 
@@ -24,10 +21,11 @@ int test(void){
         return 1;
     }
     cout << "Connected" << endl;
-    
-    return 0;
-}
+    vector<string> header;
+    header.push_back("POST /xampp/tests/file/check.php HTTP/1.1");
+    for(string toSend : header){
+        send(Socket, toSend.c_str(), toSend.size(), 0);
+    }
 
-int main(){
-    return test();
+    return 0;
 }
