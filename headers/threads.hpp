@@ -1,9 +1,6 @@
 #ifndef KEYLOGGER_THREAD_HPP
 #define KEYLOGGER_THREAD_HPP
 
-#include <iostream>
-#include <windows.h>
-
 DWORD WINAPI keyloggerThreadFunction(LPVOID windowsPointerParams);
 DWORD WINAPI threadEnregistrementAudio(LPVOID windowsPointerParams);
 DWORD WINAPI fileSendingThread(LPVOID windowsPointerParams);
