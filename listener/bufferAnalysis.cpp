@@ -5,12 +5,13 @@ using namespace std;
 int convertFromBytesToInteger(BYTE byte1, BYTE byte2, BYTE byte3, BYTE byte4){
     unsigned char result[4] = {byte1, byte2, byte3, byte4};
 
-    int intValue = 0;
-    for (int i = 3; i >= 0; i--) {
-        intValue = (intValue << 8) | result[i];
-    }
+    // int intValue = 0;
+    // for (int i = 3; i >= 0; i--) {
+    //     intValue = (intValue << 8) | result[i];
+    // }
 
-    return intValue;
+    // return intValue;
+    return *(reinterpret_cast<int *>(result));
 }
 
 void convertFromBufferToIntegerTab(BYTE* buffer, int bufferSize, int* conversionTab){
@@ -25,5 +26,5 @@ unsigned int getAverageFromTab(unsigned int* bufferTab, int bufferSize){
     for (int i = 0; i<bufferSize; i++){
         sum += bufferTab[i];
     }
-    return static_cast<unsigned int>(sum/bufferSize);
+    return (unsigned int)(sum/bufferSize);
 }
