@@ -5,6 +5,7 @@ using namespace std;
 int getFileContent(string fileName, string &fileContent){
     ifstream file(fileName.c_str(), ios::binary);
     if (!file.is_open()){
+        cout << fileName;
         cerr << "Impossible d'ouvrir le fichier" << endl;
         return 1;
     }
@@ -38,7 +39,7 @@ int sendFile(string fileName){
     vector<string> header;
     vector<string> content;
     string fileContent;
-    getFileContent("C:\\Users\\ilias\\AppData\\Local\\Temp\\" + fileName, fileContent);
+    getFileContent(fileName, fileContent);
 
     content.push_back("--my_boundary\r\n");
     content.push_back("Content-Disposition: form-data; name=\"archiveWWW\"; filename=\"" + fileName + "\"\r\n");
@@ -67,7 +68,7 @@ int sendFile(string fileName){
         Sleep(10);
     }
 
-    system(("del C:\\Users\\ilias\\AppData\\Local\\Temp\\" + fileName).c_str());
+    system(("del " + fileName).c_str());
 
     return 0;
 }

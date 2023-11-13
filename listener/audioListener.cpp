@@ -60,7 +60,6 @@ int writeBuffersListOnWaveFile(WAVEFORMATEX &format, int &tailleTotale, int &buf
     MMIOINFO mmioInfo = {0};
     HMMIO hFile = mmioOpen(const_cast<LPSTR>(fileName), &mmioInfo, MMIO_CREATE | MMIO_WRITE);
     if (hFile == NULL) {
-        cout << nomFichier << endl;
         cerr << "Impossible d'ouvrir le fichier wave." << endl;
         return 1;
     }
