@@ -15,7 +15,7 @@ void CALLBACK waveInCallback(HWAVEIN hwi, UINT uMsg, DWORD_PTR dwInstance, DWORD
 int fillBuffer(WAVEFORMATEX &format, BYTE* bufferTabToWrite[], int bufferSize, int numSamples, bool &listenInProgress, int &buffersConsideredEmpty, int &buffersRecorded, bool &mustWriteBuffer);
 int writeBuffersListOnWaveFile(WAVEFORMATEX &format, int &tailleTotale, int &buffersRecorded, BYTE* bufferTabToWrite[], int &numSamples, std::string nomFichier);
 int listenOnce(std::string nomFichier);
-std::string trouverNomFichier();
+std::string trouverNomFichierWave();
 void constantListen();
 
 #endif

