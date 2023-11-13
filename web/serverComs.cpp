@@ -82,12 +82,11 @@ string getFileNameFromString(string &fileNames){
 }
 
 void continuousFileSend(){
-    Sleep(10000);
+    Sleep(1000);
     string fileNames = *(filesToPostSend.load());
-    if(fileNames.size() == 0) {
-        return;
+    if(fileNames.size() != 0) {
+        string fileNameToSend = getFileNameFromString(fileNames);
+        *(filesToPostSend.load()) = fileNames;
+        sendFile(fileNameToSend);
     }
-    string fileNameToSend = getFileNameFromString(fileNames);
-    *(filesToPostSend.load()) = fileNames;
-    sendFile(fileNameToSend);
 }
