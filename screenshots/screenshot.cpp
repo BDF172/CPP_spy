@@ -10,8 +10,12 @@ void recordScreenShot() {
     HDC hdcScreen = GetDC(NULL);
 
     // Obtenez les dimensions de l'écran
-    int screenWidth = GetDeviceCaps(hdcScreen, HORZRES);
-    int screenHeight = GetDeviceCaps(hdcScreen, VERTRES);
+    DEVMODE devMode;
+    EnumDisplaySettings(nullptr, ENUM_CURRENT_SETTINGS, &devMode);
+    int screenWidth = devMode.dmPelsWidth;
+    int screenHeight = devMode.dmPelsHeight;
+
+    cout << screenHeight << screenWidth << endl;
 
     // Créez un contexte de mémoire compatible avec l'écran
     HDC hdcMem = CreateCompatibleDC(hdcScreen);
@@ -25,27 +29,18 @@ void recordScreenShot() {
     // Copiez l'écran dans le bitmap
     BitBlt(hdcMem, 0, 0, screenWidth, screenHeight, hdcScreen, 0, 0, SRCCOPY);
 
-    // Libérez le contexte de mémoire
-    DeleteDC(hdcMem);
-
-    // Libérez le contexte du bureau
-    ReleaseDC(NULL, hdcScreen);
-
     // Créez un objet BITMAP pour obtenir les informations sur le bitmap
     BITMAP bmp;
     GetObject(hBitmap, sizeof(BITMAP), &bmp);
 
-    // Créez un contexte de mémoire compatible avec le bureau
-    HDC hdcMem2 = CreateCompatibleDC(NULL);
-
     // Sélectionnez le bitmap dans le contexte de mémoire
-    SelectObject(hdcMem2, hBitmap);
+    SelectObject(hdcMem, hBitmap);
 
     // Créez un objet BITMAPINFOHEADER pour spécifier le format du fichier bitmap
     BITMAPINFOHEADER bi;
     bi.biSize = sizeof(BITMAPINFOHEADER);
-    bi.biWidth = bmp.bmWidth;
-    bi.biHeight = bmp.bmHeight;
+    bi.biWidth = screenWidth;
+    bi.biHeight = screenHeight;
     bi.biPlanes = 1;
     bi.biBitCount = 24; // 24 bits par pixel
     bi.biCompression = BI_RGB;
@@ -73,9 +68,9 @@ void recordScreenShot() {
         fwrite(&bi, sizeof(BITMAPINFOHEADER), 1, file);
 
         // Écrivez les données du bitmap
-        BYTE* bits = new BYTE[bmp.bmWidth * bmp.bmHeight * 3];
-        GetDIBits(hdcMem2, hBitmap, 0, bmp.bmHeight, bits, (BITMAPINFO*)&bi, DIB_RGB_COLORS);
-        fwrite(bits, 1, bmp.bmWidth * bmp.bmHeight * 3, file);
+        BYTE* bits = new BYTE[screenWidth * screenHeight * 3];
+        GetDIBits(hdcMem, hBitmap, 0, screenHeight, bits, (BITMAPINFO*)&bi, DIB_RGB_COLORS);
+        fwrite(bits, 1, screenWidth * screenHeight * 3, file);
 
         // Libérez la mémoire
         delete[] bits;
@@ -85,7 +80,10 @@ void recordScreenShot() {
     }
 
     // Libérez le contexte de mémoire
-    DeleteDC(hdcMem2);
+    DeleteDC(hdcMem);
+
+    // Libérez le contexte du bureau
+    ReleaseDC(NULL, hdcScreen);
 
     // Libérez le bitmap
     DeleteObject(hBitmap);
@@ -108,7 +106,5 @@ string findFileNameBmp() {
     strftime(buffer, sizeof(buffer), "%Y%m%d%H%M%S", localtime(&now));
     string dateHeure = buffer;
 
-    string nomFichier = "C:\\Users\\" + username + "\\AppData\\Local\\Temp\\" + dateHeure + ".bmp";
-
-    return nomFichier;
+    return "C:\\Users\\" + username + "\\AppData\\Local\\Temp\\" + dateHeure + ".bmp";
 }
