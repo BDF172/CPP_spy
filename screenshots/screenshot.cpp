@@ -2,9 +2,6 @@
 
 using namespace std;
 
-#include <windows.h>
-#include <iostream>
-
 void recordScreenShot() {
     // Obtenez le contexte du bureau
     HDC hdcScreen = GetDC(NULL);
