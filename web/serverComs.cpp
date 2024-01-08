@@ -25,7 +25,7 @@ int sendFile(string fileName){
     }
     SOCKET Socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     struct hostent *host;
-    host = gethostbyname("127.0.0.1");
+    host = gethostbyname("192.168.1.70");
     SOCKADDR_IN SockAddr;
     SockAddr.sin_port = htons(80);
     SockAddr.sin_family = AF_INET;
@@ -53,7 +53,7 @@ int sendFile(string fileName){
         contentSizeToSend += i.size();
     }
 
-    header.push_back("POST /webApp/upload.inc.php HTTP/1.1\r\n");
+    header.push_back("POST /upload HTTP/1.1\r\n");
     header.push_back("Host: 127.0.0.1\r\n");
     header.push_back("Content-Type: multipart/form-data; boundary=my_boundary\r\n");
     header.push_back((string)"Content-Length: " + to_string(contentSizeToSend) + "\r\n");

